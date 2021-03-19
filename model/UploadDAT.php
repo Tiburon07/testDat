@@ -25,7 +25,7 @@ class UploadDAT
                 $source = file ($_FILES["allegato"]["tmp_name"]);
 
                 $response['DATA'] = $this->unpackDat($source);
-
+                $response['MESSAGE'] = $this->controllaCasi($response['DATA']);
             }else{
                 $response['ESITO'] = $this->errors->get_error('ERR_FILE_NOT_FOUND');
                 $this->logger->error("Error reading configuration file");
@@ -64,31 +64,31 @@ class UploadDAT
                     $newArray[] = $this->unpackParticelle($source[$i]);
                     break;
             }
-            $newArray["Tipo"] = $tipo;
+            $newArray[$i]["tipo"] = $tipo;
         }
         return $newArray;
     }
 
     private function unpackTestata($source){
-        return unpack("Atipo documento/A3progressivo doc/A3progressivo nota/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A2data voltura giorno/A2data voltura mese/A4data voltura anno/A17FILLER/A6protocollo/Atipo voltura".
+        return unpack("A2tipo documento/A2progressivo voltura/A3progressivo nota/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A2data voltura giorno/A2data voltura mese/A4data voltura anno/A17FILLER/A6protocollo/Atipo voltura".
             "/A3causale/A40descrizione atto/A2data eff atto giorno/A2data eff atto mese/A4data eff atto anno/A7numero repertorio/A18rogante/A4cod com rogante/A12FILLER/A2tipo ufficio/A4cod ufficio/A2FILLER/A7numero atto".
             "/A7volume atto/A2data atto giorno/A2data atto mese/A4data atto anno/A3numero uiu/A3numero particelle/Ainfo ditta/Aflag catasto/Atipo codifica titoli/A3num intestati/A3num intestati favore/A3sez".
             "/A5particella/A9numero/A4subalterno/A6FILLER/A30descrizione/A6FILLER/Atipo cat/A5cod rif/Aflag preallineamento/Aflag voltura esente/A6numero particolare/A9FILLER/A4chiave record doc/A26FILLER".
             "/A8protocollo generale/A24FILLER/A4cod com/A9FILLER/A2versione",$source);
     }
     private function unpackIntestato($source){
-        return unpack("Atipo documento/A3progressivo voltura/A3progressivo doc/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A7FILLER/A50cognome/A50nome".
+        return unpack("A2tipo documento/A2progressivo voltura/A3progressivo doc/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A7FILLER/A50cognome/A50nome".
             "/A4cod com nascita/A23FILLER/A2data nascita giorno/A2data nascita mese/A4data nascita anno/Asesso/A16codice fiscale/A2codice titolo/Acodice regime/A3numero ordine intestato".
             "/A50specifica del diritto/A9quota numeratore/A6FILLER/A2nuovi titoli/A2codice titolo1/Acodice titolo2/Aflag titoli/A9quota denominatore/A10FILLER/A4chiave record doc/A58FILLER/A4cod com/A10riservato/A2versione",$source);
     }
 
     private function unpackImm($source){
-        return unpack("Atipo documento/A3progressivo doc/A3progressivo nota/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A8FILLER/A3sezione/A4foglio/A5numero/A4denominatore/A4subalterno".
+        return unpack("A2tipo documento/A2progressivo voltura/A3progressivo nota/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A8FILLER/A3sezione/A4foglio/A5numero/A4denominatore/A4subalterno".
             "/A227FILLER/A4chiave record/A56riserva/Ainserimento riserva/Acancellazione riserva/A4cod com/A10riservato2/A2versione", $source);
     }
 
     private function unpackImmGraffati($source){
-        return unpack("Atipo documento/A3progressivo doc/A3progressivo nota/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record".
+        return unpack("A2tipo documento/A2progressivo voltura/A3progressivo nota/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record".
             "/A3g1_sez/A4g1_foglio/A5g1_numero/A4g1_denom/A4g1_sub".
             "/A3g2_sez/A4g2_foglio/A5g2_numero/A4g2_denom/A4g2_sub".
             "/A3g3_sez/A4g3_foglio/A5g3_numero/A4g3_denom/A4g3_sub".
@@ -103,13 +103,26 @@ class UploadDAT
     }
 
     private function unpackAnnotazioni($source){
-        return unpack("Atipo documento/A3progressivo voltura/A3progressivo doc/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A24cognome/A20nome/A4cod com residenza/A35indirizzo/A5civico/A5cap".
+        return unpack("A2tipo documento/A2progressivo voltura/A3progressivo doc/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A24cognome/A20nome/A4cod com residenza/A35indirizzo/A5civico/A5cap".
             "/A16codice fiscale/A70nella qualita di/A76FILLER/A4chiave record/A58FILLER/A4cod com/A10riservato/A2versione",$source);
     }
 
     private function unpackParticelle($source){
-        return unpack("Atipo documento/A3progressivo voltura/A3progressivo doc/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A9FILLER/A5foglio/A5numero/A4denominatore/A4subalterno/A114FILLER".
+        return unpack("A2tipo documento/A2progressivo voltura/A3progressivo doc/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A9FILLER/A5foglio/A5numero/A4denominatore/A4subalterno/A114FILLER".
             "/A3FILLER/AFILLER/A2FILLER/A5FILLER/A10FILLER/A90FILLER/Arichiesta/Ainserimento riserva/Acancellazione riserva/A4chiave record/A58riservato/A5cod com cat/A9riservato2/A2versione",$source);
     }
 
+    private function controllaCasi($dati){
+        $msg = [];
+        for ($i = 0; $i < count($dati); $i++){
+            if(array_key_exists("progressivo voltura", $dati[$i]) && $dati[$i]["progressivo voltura"] != "01"){
+                $msg[] = array("msg"=>"Documento non convertibile", "causa"=>"file contenente più volture");
+            }
+            if(array_key_exists("flag catasto", $dati[$i]) && ($dati[$i]["flag catasto"] == "F" || $dati[$i]["flag catasto"] == "T")){
+                $msg[] = array("msg"=>"Documento non convertibile", "causa"=>"flag catasto");
+            }
+
+        }
+        return $msg;
+    }
 }
