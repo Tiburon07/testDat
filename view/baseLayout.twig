@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="shortcut icon" type="image/png" href="../images/icon-circle-purple-000.png"/>
+         {% block stylesheets %}
+           <link rel="stylesheet"  href="{{assets}}/../css/bootstrap.min.css" />
+           <link rel="stylesheet" href="{{assets}}/../css/bootstrap-grid.min.css" />
+           <link rel="stylesheet" href="{{assets}}/../css/font-awesome.min.css">
+           <link rel="stylesheet" href="{{assets}}/../css/datatables.min.css">
+        {% endblock %}
+
+        {%block style%}{%endblock%}
+
+        <title>DAT</title>
+        <script src="{{assets}}/../js/jquery.min.js"></script>
+        <script src="{{assets}}/../js/bootstrap.min.js"></script>
+        <script src="{{assets}}/../js/datatables.min.js"></script>
+        <script src="{{assets}}/../js/datatables.min.js"></script>
+        <script src="{{assets}}/../js/DatUtility.js"></script>
+        {% block jslib %} {% endblock %}
+    </head>
+    <body>
+        <script>
+             $( document ).ready(function() {
+                {% block documentReady %}{% endblock %}
+              });
+        </script>
+        {% block content %}{% endblock %}
+    </body>
+</html>

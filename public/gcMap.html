@@ -1,0 +1,89 @@
+<html>
+    <head>
+        
+		<!--<base href="http://10.199.50.110:8094/navigazionelaghi/public/">-->
+		
+		<!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"/>-->
+		<link rel="stylesheet" href="css/leaflet.css" />
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            html, body, #mappa {
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="mappa"></div>
+        
+        <!--<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>-->
+		<script src="js/leaflet.js"></script> 
+        <script>
+        
+        
+            var LeafIcon = L.Icon.extend({
+                options: {
+                    iconUrl:    'images/icon-circle-purple-000.png',
+                    iconSize:   [24, 24],
+                    iconAnchor: [12, 12]
+                }
+            });
+            var icon_circle = new LeafIcon();
+            <!--startLocation = [43.7903165, 11.2491704];-->
+			startLocation = [41.907520, 12.559041];
+            var map = L.map('mappa').setView(startLocation, 13);
+            var mainMarker = L.marker(startLocation, {icon: icon_circle}).addTo(map);
+            
+            L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                subdomains: ['a','b','c']
+            }).addTo( map );
+            
+            L.tileLayer('http://{s}.openseamap.org/seamark/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openseamap.org/copyright">OpenSeaMap</a>',
+                subdomains: ['t1']
+            }).addTo(map);
+            
+            var iconUrlByAngle = function(angle){
+                var url = "icon-circle-purple-000.png";
+                if(angle>345 && angle <= 15){
+                    url = "icon-circle-purple-000.png";
+                }else if(angle>15 && angle <= 45){
+                    url = "icon-circle-purple-030.png";
+                }else if(angle>45 && angle <= 75){
+                    url = "icon-circle-purple-060.png";
+                }else if(angle>75 && angle <= 105){
+                    url = "icon-circle-purple-090.png";
+                }else if(angle>105 && angle <= 135){
+                    url = "icon-circle-purple-120.png";
+                }else if(angle>135 && angle <= 165){
+                    url = "icon-circle-purple-150.png";
+                }else if(angle>165 && angle <= 195){
+                    url = "icon-circle-purple-180.png";
+                }else if(angle>195 && angle <= 225){
+                    url = "icon-circle-purple-210.png";
+                }else if(angle>225 && angle <= 255){
+                    url = "icon-circle-purple-240.png";
+                }else if(angle>255 && angle <= 285){
+                    url = "icon-circle-purple-270.png";
+                }else if(angle>285 && angle <= 315){
+                    url = "icon-circle-purple-300.png";
+                }else if(angle>315 && angle <= 345){
+                    url = "icon-circle-purple-330.png";
+                }
+                return "images/" + url;
+            }
+            
+            var setCenter = function(lon, lat, angle){
+                mainMarker._icon.src = iconUrlByAngle(angle);
+                mainMarker.setLatLng(new L.LatLng(lat,lon));
+                map.setView([lat, lon]);
+            }
+            
+        </script>
+        
+    </body>
+</html>

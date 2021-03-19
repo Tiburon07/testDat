@@ -1,0 +1,46 @@
+{% extends "baseLayout.twig" %}
+
+{% block jslib %}
+    <script src="../js/UploadDATManager.js"></script>
+{% endblock %}
+
+{% block documentReady %}
+    UploadDATManager.getInstance();
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="offset-sm-1 col-sm-10 offset-lg-3 col-lg-6">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h1 style="text-align: center; color: #10306B; margin-top: 15px">Elaborazione .DAT</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="form_salva_gtfs">
+                            <div class="custom-file">
+                                <input type="file" id="input_file_gtfs" name="allegato" class="custom-file-input" size="20"/>
+                                <label for="input_file_gtfs" class="custom-file-label">Scegli file:</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mt-3">
+                        <div class="input-group">
+                            <button type="button" class="buttonload btn btn-primary" id="btn_salva_gtfs"><i id="id_spinner" class="fa fa-spinner fa-spin d-none"></i> Salva</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5"><div class="col-md-12"></div></div>
+{% endblock content %}

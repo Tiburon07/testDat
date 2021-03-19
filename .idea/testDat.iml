@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/testDat" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/testDat/model" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/phpunit/php-code-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/pimple/pimple" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/nikic/fast-route" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/twig/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/slim/twig-view" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/slim/slim" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/slim/php-view" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/phpunit/phpunit-mock-objects" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/phpunit/php-token-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/phpunit/php-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/phpunit/php-text-template" />
+      <excludeFolder url="file://$MODULE_DIR$/testDat/vendor/phpunit/php-file-iterator" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

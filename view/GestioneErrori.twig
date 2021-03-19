@@ -1,0 +1,19 @@
+{% extends "baseLayout.twig" %}
+{% block content%}
+<head>
+  {% block stylesheets %}
+    <link rel="stylesheet"  href="{{app.request.getBaseURL}}/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{app.request.getBaseURL}}/css/bootstrap-grid.min.css" />
+  {% endblock %}
+</head>
+
+<body>
+  <div class="alert alert-warning" role="alert" style="width:40%; margin:auto; margin-top:50px; text-align:center;">
+  {% if rows== -1 %}
+  Errore di tipo PDOException!
+  {% else %}
+  Errore!
+  {% endif %}
+  </div>
+</body>
+{% endblock content%}

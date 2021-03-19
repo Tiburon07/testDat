@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/testDat/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/testDat/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/testDat/vendor/pimple/pimple" />
+      <path value="$PROJECT_DIR$/testDat/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/testDat/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/testDat/vendor/slim/twig-view" />
+      <path value="$PROJECT_DIR$/testDat/vendor/composer" />
+      <path value="$PROJECT_DIR$/testDat/vendor/slim/slim" />
+      <path value="$PROJECT_DIR$/testDat/vendor/slim/php-view" />
+      <path value="$PROJECT_DIR$/testDat/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/testDat/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/testDat/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/testDat/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/testDat/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/testDat/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/testDat/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/testDat/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/testDat/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/testDat/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/testDat/vendor/phpunit/php-file-iterator" />
+    </include_path>
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/testDat/vendor/autoload.php" />
+    </phpunit_settings>
+  </component>
+</project>
