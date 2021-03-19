@@ -4,7 +4,8 @@
         "slim/twig-view": "^2.4",
         "slim/php-view": "^2.2",
         "monolog/monolog": "^1.23",
-        "twig/twig": "^1.35"
+        "twig/twig": "^1.35",
+      "ext-simplexml": "*"
     },
 	"autoload": {
         "twig/twig": "~1.0",

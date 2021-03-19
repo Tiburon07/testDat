@@ -1,7 +1,6 @@
 <?php
 require_once('../model/Logger.php');
 require_once('Errors.php');
-
 class UploadDAT
 {
 
@@ -24,8 +23,11 @@ class UploadDAT
                 $filename = $_FILES["allegato"]["name"];
                 $source = file ($_FILES["allegato"]["tmp_name"]);
 
-                $response['DATA'] = $this->unpackDat($source);
-                $response['MESSAGE'] = $this->controllaCasi($response['DATA']);
+                $data = $this->unpackDat($source);
+                $response['MESSAGE'] = $this->controllaCasi($data);
+                $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Telematico></Telematico>');
+                $xml = $this->impostaValori($data, $xml);
+                $response['DATA'] = $xml->asXML();
             }else{
                 $response['ESITO'] = $this->errors->get_error('ERR_FILE_NOT_FOUND');
                 $this->logger->error("Error reading configuration file");
@@ -71,7 +73,7 @@ class UploadDAT
 
     private function unpackTestata($source){
         return unpack("A2tipo documento/A2progressivo voltura/A3progressivo nota/Aid record/A3progressivo ambito/A5progressivo trascinato/Atipo record/A2data voltura giorno/A2data voltura mese/A4data voltura anno/A17FILLER/A6protocollo/Atipo voltura".
-            "/A3causale/A40descrizione atto/A2data eff atto giorno/A2data eff atto mese/A4data eff atto anno/A7numero repertorio/A18rogante/A4cod com rogante/A12FILLER/A2tipo ufficio/A4cod ufficio/A2FILLER/A7numero atto".
+            "/A3causale atto/A40descrizione atto/A2data eff atto giorno/A2data eff atto mese/A4data eff atto anno/A7numero repertorio/A18rogante/A4cod com rogante/A12FILLER/A2tipo ufficio/A4cod ufficio/A2FILLER/A7numero atto".
             "/A7volume atto/A2data atto giorno/A2data atto mese/A4data atto anno/A3numero uiu/A3numero particelle/Ainfo ditta/Aflag catasto/Atipo codifica titoli/A3num intestati/A3num intestati favore/A3sez".
             "/A5particella/A9numero/A4subalterno/A6FILLER/A30descrizione/A6FILLER/Atipo cat/A5cod rif/Aflag preallineamento/Aflag voltura esente/A6numero particolare/A9FILLER/A4chiave record doc/A26FILLER".
             "/A8protocollo generale/A24FILLER/A4cod com/A9FILLER/A2versione",$source);
@@ -121,8 +123,44 @@ class UploadDAT
             if(array_key_exists("flag catasto", $dati[$i]) && ($dati[$i]["flag catasto"] == "F" || $dati[$i]["flag catasto"] == "T")){
                 $msg[] = array("msg"=>"Documento non convertibile", "causa"=>"flag catasto");
             }
-
         }
         return $msg;
     }
+
+    private function impostaValori($dati, &$xml){
+        //todo: aggiungere codice riscontro da volturautils
+        for ($i = 0; $i < count($dati); $i++){
+            if($dati[$i]["tipo"] == 'A1'){
+                $xml->addChild('IstanzaVoltura', $this->createChiaveIstanzaVoltura($dati[$i]));
+            }
+        }
+        return $xml;
+    }
+
+    private function impostaDatiTestata($dati){
+        /*$flagPreAllineamento = $dati["flag preallineamento"];
+        switch ($flagPreAllineamento){
+            case '0':
+                $dati["flag preallineamento"] = "VOLTURA ATTUALE";
+                break;
+            case '1':
+                $dati["flag preallineamento"] = "PREALLINEAMENTO";
+                break;
+            case '2':
+                $dati["flag preallineamento"] = "RECUPERO VOLTURA AUTOMATICA";
+                break;
+        }*/
+    }
+
+    private function createChiaveIstanzaVoltura($data){
+        $ChiaveIstanzaVoltura = new SimpleXMLElement('<ChiaveIstanzaVoltura/>');
+        //todo: aggiungere codice riscontro da volturautils
+        $ChiaveIstanzaVoltura->addAttribute('codiceRiscontro', '');
+        if ($data['causale atto'] == 'IST') $ChiaveIstanzaVoltura->addChild('VolturaInfoAttoNotarile');
+        else if ($data['causale atto'] == 'DEN') $ChiaveIstanzaVoltura->addChild('VolturaInfoSuccessione');
+        else $ChiaveIstanzaVoltura->addChild('VolturaInfoAtto');
+
+        return $ChiaveIstanzaVoltura;
+    }
+
 }
